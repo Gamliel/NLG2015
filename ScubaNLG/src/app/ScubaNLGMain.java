@@ -43,7 +43,8 @@ public class ScubaNLGMain extends javax.swing.JFrame {
     public ScubaNLGMain() {
         ArrayList<String> diveLabels = new ArrayList<String>();
         //dataBase = new MyJDBC("jdbc:odbc:scuba","sun.jdbc.odbc.JdbcOdbcDriver","","");
-        dataBase = new MyJDBC("jdbc:mysql://mysql.abdn.ac.uk:3306/s01rk2_open_labs","com.mysql.jdbc.Driver","s01rk2_open_labs","NLG2015");
+//        dataBase = new MyJDBC("jdbc:mysql://mysql.abdn.ac.uk:3306/s01rk2_open_labs","com.mysql.jdbc.Driver","s01rk2_open_labs","NLG2015");
+        dataBase = new MyJDBC("jdbc:mysql://localhost:3306/ScubaNLG","com.mysql.jdbc.Driver","openlabs","openlabs");
         
         dataBase.executeQuery("Select * from alladinlogs");
 
