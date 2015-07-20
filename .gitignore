@@ -1,4 +1,5 @@
 *.class
 target/
-./ScubaNLG/.classpath
-./ScubaNLG/.settings/
+ScubaNLG/.classpath
+ScubaNLG/.settings/
+ScubaNLG/bin/
