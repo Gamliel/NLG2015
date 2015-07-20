@@ -9,7 +9,7 @@ package app;
  *This is the main class for the ScubaNLG application. Connects to the database, reads the dive log data from it and displays the dive locations on a map.
  * @author  ssripada
  */
-import hci.alladinLogMapView;
+import hci.AlladinLogMapView;
 import hci.LinePlot;
 
 import java.awt.Dimension;
@@ -36,14 +36,14 @@ public class ScubaNLGMain extends javax.swing.JFrame {
     Double diveNo;
     TreeMap<Long,Double> profile,speedSeries;
 	
-	alladinLogMapView gPanel;
+	AlladinLogMapView gPanel;
 	
         
     /** Creates new ScubaNLGMain */
     public ScubaNLGMain() {
         ArrayList<String> diveLabels = new ArrayList<String>();
         //dataBase = new MyJDBC("jdbc:odbc:scuba","sun.jdbc.odbc.JdbcOdbcDriver","","");
-        dataBase = new MyJDBC("jdbc:mysql://mysql.abdn.ac.uk:3306/s01rk2_open_labs","com.mysql.jdbc.Driver","s01rk2_open_labs","NLG2015”);
+        dataBase = new MyJDBC("jdbc:mysql://mysql.abdn.ac.uk:3306/s01rk2_open_labs","com.mysql.jdbc.Driver","s01rk2_open_labs","NLG2015");
         
         dataBase.executeQuery("Select * from alladinlogs");
 
@@ -53,7 +53,7 @@ public class ScubaNLGMain extends javax.swing.JFrame {
          diveLabels.add(String.valueOf(((Double)dataBase.getValueAt(i,0)).intValue()));
         }
         
-        gPanel = new alladinLogMapView(0,0,360,180,20,10,x,y,diveLabels,this);
+        gPanel = new AlladinLogMapView(0,0,360,180,20,10,x,y,diveLabels,this);
         this.add(gPanel,java.awt.BorderLayout.CENTER);
         // set the preferred size of the scatterplot window
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
