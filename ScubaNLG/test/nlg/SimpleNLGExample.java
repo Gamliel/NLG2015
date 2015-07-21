@@ -1,6 +1,6 @@
 package nlg;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import simplenlg.features.Feature;
 import simplenlg.features.Tense;
@@ -12,7 +12,7 @@ import simplenlg.phrasespec.VPPhraseSpec;
 import simplenlg.realiser.english.Realiser;
 
 public class SimpleNLGExample {
-	
+
 	@org.junit.Test
 	public void shouldRealiseSimpleSentence() {
 
