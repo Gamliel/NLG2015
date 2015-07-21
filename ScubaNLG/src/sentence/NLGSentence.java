@@ -7,7 +7,7 @@ public class NLGSentence {
 	}
 
 	public String getSentence() {
-		return "This dive was fine.";
+		return "This was a shallow dive.";
 	}
 
 }
