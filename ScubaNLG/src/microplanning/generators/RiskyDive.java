@@ -13,6 +13,7 @@ public class RiskyDive extends Generator{
 		this.emphatic = emphatic;
 	}
 
+	@Override
 	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);

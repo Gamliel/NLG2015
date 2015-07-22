@@ -9,6 +9,8 @@ import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
 
 public class SafetyStop extends Generator{
+
+	@Override
 	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);

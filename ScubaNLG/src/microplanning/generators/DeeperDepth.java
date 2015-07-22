@@ -19,6 +19,7 @@ public class DeeperDepth extends Generator{
 		this.objREG = objREG;
 	}
 	
+	@Override
 	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);

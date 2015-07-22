@@ -18,6 +18,7 @@ public class FineAscentRate extends Generator{
 		this.ascent = ascent;
 	}
 	
+	@Override
 	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
