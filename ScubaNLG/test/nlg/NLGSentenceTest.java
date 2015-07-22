@@ -6,6 +6,7 @@ import com.mysql.jdbc.NotImplemented;
 
 import analytics.DiveletFeatures;
 import microplanning.NLGSentence;
+import microplanning.NLGSentenceRiskyDive;
 import microplanning.NLGSentenceSafetyStop;
 import microplanning.NLGSentenceShallowDive;
 import simplenlg.lexicon.Lexicon;
@@ -40,25 +41,23 @@ public class NLGSentenceTest {
 	
 	@org.junit.Test
 	public void acceptRiskyDive() throws NotImplemented{
-        NLGSentence unit = new NLGSentence();
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setExcessBottomTime(6);
 		firstDiveletFeature.setExcessDiveDepth(-1.5);
 		firstDiveletFeature.setBottomTime(14);
 		firstDiveletFeature.setDiveDepth(40.5);
-		unit.setFeatures(40.5,firstDiveletFeature);
+        NLGSentence unit = new NLGSentenceRiskyDive(firstDiveletFeature);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a risky dive.");
 	}
 	
 	@org.junit.Test
 	public void acceptReallyRiskyDive() throws NotImplemented{
-        NLGSentence unit = new NLGSentence();
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setExcessBottomTime(12);
 		firstDiveletFeature.setExcessDiveDepth(-0.7);
 		firstDiveletFeature.setBottomTime(20);
 		firstDiveletFeature.setDiveDepth(41.3);
-		unit.setFeatures(41.3,firstDiveletFeature);
+        NLGSentence unit = new NLGSentenceRiskyDive(firstDiveletFeature);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really risky dive.");
 	}
 }

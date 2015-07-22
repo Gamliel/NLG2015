@@ -1,7 +1,5 @@
 package microplanning;
 
-import com.mysql.jdbc.NotImplemented;
-
 import analytics.PADITable;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -15,7 +13,7 @@ public class NLGSentenceSafetyStop extends NLGSentence {
 		this.bottomLine = bottomLine;
 	}
 
-	public SPhraseSpec getSentence() throws NotImplemented {
+	public SPhraseSpec getSentence() {
 			return SafetyStop.microplan();
 	}
 	
