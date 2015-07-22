@@ -23,7 +23,6 @@ public class TextGenerator implements Reporter{
 			int numOfDivelets, 
 			DiveletFeatures firstDiveletFeatures, 
 			DiveletFeatures secondDiveletFeatures) {
-		// TODO Auto-generated constructor stub
 		this.diveDepth = diveDepth;
 		this.numOfDivelets = numOfDivelets;
 		this.firstDiveletFeatures = firstDiveletFeatures;
@@ -34,7 +33,6 @@ public class TextGenerator implements Reporter{
 	
 	@Override
 	public String generateText() {
-		// TODO Auto-generated method stub
 		checkSafetyStop();
 		
 		checkShallowDive();
