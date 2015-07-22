@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import analytics.DiveletFeatures;
 import analytics.PADITable;
+import microplanning.NLGSentenceShallowDive;
 import microplanning.RiskyDive;
 import microplanning.SafetyStop;
 import microplanning.ShallowDive;
@@ -53,11 +54,9 @@ public class TextGenerator implements Reporter{
 	}
 	
 	private void checkShallowDive(){
-		if (diveDepth <= 12.0){
-			if (diveDepth <= 9.6)
-				phrases.put("ShallowDive", ShallowDive.microplan(true));
-			else
-				phrases.put("ShallowDive", ShallowDive.microplan(false));
+		NLGSentenceShallowDive sentenceGenerator = new NLGSentenceShallowDive(diveDepth);
+		if (sentenceGenerator.canGenerate()){
+			phrases.put("ShallowDive", sentenceGenerator.getSentence());
 		}
 	}
 	

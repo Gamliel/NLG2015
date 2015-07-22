@@ -1,43 +1,36 @@
 package microplanning;
 
+import com.mysql.jdbc.NotImplemented;
+
 import analytics.DiveletFeatures;
 import analytics.PADITable;
-
-import simplenlg.framework.*;
-import simplenlg.lexicon.*;
-import simplenlg.realiser.english.*;
-import simplenlg.phrasespec.*;
-import simplenlg.features.*;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.realiser.english.Realiser;
 
 public class NLGSentence {
 	
 	private double depth;
 	private DiveletFeatures firstDiveletFeatures;
-	private DiveletFeatures secondDiveletFeatures;
 	
 	public void setFeatures(double depth, DiveletFeatures firstDiveletFeature) {
 		this.depth = depth;
 		this.firstDiveletFeatures = firstDiveletFeature;
 	}
 
-	public String getSentence() {
-		Lexicon lexicon = Lexicon.getDefaultLexicon();
-        Realiser realiser = new Realiser(lexicon);
-		
+	public SPhraseSpec getSentence() throws NotImplemented {
         if (hasExceeded()){
         	if(hasReallyExceeded())
-        		return realiser.realiseSentence(RiskyDive.microplan(true));
+        		return RiskyDive.microplan(true);
         	else
-        		return realiser.realiseSentence(RiskyDive.microplan(false));
+        		return RiskyDive.microplan(false);
         }
         
 		if(PADITable.needSafetyStop(depth, firstDiveletFeatures.getBottomTime())){
-			return realiser.realiseSentence(SafetyStop.microplan());
+			return SafetyStop.microplan();
 		}
 		
-		if (depth<=9.6)
-			return realiser.realiseSentence(ShallowDive.microplan(true));
-		return realiser.realiseSentence(ShallowDive.microplan(false));
+		throw new NotImplemented();
 	}
 	
 	private boolean hasReallyExceeded() {
@@ -47,6 +40,10 @@ public class NLGSentence {
 	private boolean hasExceeded() {
 		return firstDiveletFeatures.getExcessBottomTime() > 0 ||
 				firstDiveletFeatures.getExcessDiveDepth() > 0;
+	}
+	
+	public boolean canGenerate(){
+		return false;
 	}
 
 }
