@@ -2,8 +2,6 @@ package nlg;
 
 import static org.junit.Assert.*;
 
-import com.mysql.jdbc.NotImplemented;
-
 import analytics.DiveletFeatures;
 import microplanning.NLGSentence;
 import microplanning.NLGSentenceRiskyDive;
@@ -18,14 +16,14 @@ public class NLGSentenceTest {
     private Realiser realiser = new Realiser(lexicon);
 
 	@org.junit.Test
-	public void acceptDiveDepthForShallowDive() throws NotImplemented {
+	public void acceptDiveDepthForShallowDive() {
         NLGSentence unit = new NLGSentenceShallowDive(12.0);
 		assertEquals(unit.canGenerate(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a shallow dive.");
 	}
 	
 	@org.junit.Test
-	public void acceptDiveDepthForAReallyShallowDive() throws NotImplemented{
+	public void acceptDiveDepthForAReallyShallowDive() {
         NLGSentence unit = new NLGSentenceShallowDive(9.0);
 		assertEquals(unit.canGenerate(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really shallow dive.");
@@ -33,14 +31,14 @@ public class NLGSentenceTest {
 	
 	
 	@org.junit.Test
-	public void acceptShouldHaveMadeAStop() throws NotImplemented{
+	public void acceptShouldHaveMadeAStop(){
         NLGSentence unit = new NLGSentenceSafetyStop(85,25);
 		assertEquals(unit.canGenerate(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "You should have made a safety stop on your way up.");
 	}
 	
 	@org.junit.Test
-	public void acceptRiskyDive() throws NotImplemented{
+	public void acceptRiskyDive(){
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setExcessBottomTime(6);
 		firstDiveletFeature.setExcessDiveDepth(-1.5);
@@ -51,7 +49,7 @@ public class NLGSentenceTest {
 	}
 	
 	@org.junit.Test
-	public void acceptReallyRiskyDive() throws NotImplemented{
+	public void acceptReallyRiskyDive(){
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setExcessBottomTime(12);
 		firstDiveletFeature.setExcessDiveDepth(-0.7);

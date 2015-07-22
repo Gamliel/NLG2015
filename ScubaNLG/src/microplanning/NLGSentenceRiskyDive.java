@@ -1,7 +1,5 @@
 package microplanning;
 
-import com.mysql.jdbc.NotImplemented;
-
 import analytics.DiveletFeatures;
 import simplenlg.phrasespec.SPhraseSpec;
 
