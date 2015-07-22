@@ -7,6 +7,7 @@ import analytics.DiveletFeatures;
 import analytics.PADITable;
 import microplanning.generators.SafetyStop;
 import microplanning.planners.NLGSentenceRiskyDive;
+import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceShallowDive;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -43,7 +44,8 @@ public class TextGenerator implements Reporter{
 	}
 
 	private void checkSafetyStop(){
-		if(PADITable.needSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime())){
+		NLGSentenceSafetyStop generator = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
+		if (generator.canGenerate()){
 			phrases.put("SafetyStop", SafetyStop.microplan());
 		}
 	}
