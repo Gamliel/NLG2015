@@ -20,7 +20,7 @@ public class NLGSentenceDeeperDepth extends NLGSentence{
 	}
 
 	@Override
-	public boolean canGenerate() {
+	public boolean canPlan() {
 		return diveletFeatures.getExcessDiveDepth() > 0;
 	}
 

@@ -21,14 +21,14 @@ public class NLGSentenceTest {
 	@org.junit.Test
 	public void acceptDiveDepthForShallowDive() {
         NLGSentence unit = new NLGSentenceShallowDive(12.0);
-		assertEquals(unit.canGenerate(), true);
+		assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a shallow dive.");
 	}
 	
 	@org.junit.Test
 	public void acceptDiveDepthForAReallyShallowDive() {
         NLGSentence unit = new NLGSentenceShallowDive(9.0);
-		assertEquals(unit.canGenerate(), true);
+		assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really shallow dive.");
 	}
 	
@@ -36,7 +36,7 @@ public class NLGSentenceTest {
 	@org.junit.Test
 	public void acceptShouldHaveMadeAStop(){
         NLGSentence unit = new NLGSentenceSafetyStop(85,25);
-		assertEquals(unit.canGenerate(), true);
+		assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "You should have made a safety stop on your way up.");
 	}
 	

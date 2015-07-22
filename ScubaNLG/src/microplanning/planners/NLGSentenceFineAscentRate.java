@@ -21,7 +21,7 @@ public class NLGSentenceFineAscentRate extends NLGSentence{
 	}
 
 	@Override
-	public boolean canGenerate() {
+	public boolean canPlan() {
 		return diveletFeatures.getExcessAscentSpeed() >= 0;
 	}
 

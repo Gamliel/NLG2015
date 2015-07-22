@@ -22,7 +22,7 @@ public class NLGSentenceShallowDive extends NLGSentence {
 	}
 	
 	@Override
-	public boolean canGenerate() {
+	public boolean canPlan() {
 		return depth <= 12;
 	}
 }

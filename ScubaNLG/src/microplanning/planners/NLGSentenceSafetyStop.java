@@ -19,7 +19,7 @@ public class NLGSentenceSafetyStop extends NLGSentence {
 		return generator.microplan();
 	}
 	
-	public boolean canGenerate(){
+	public boolean canPlan(){
 		return PADITable.needSafetyStop(depth, bottomLine);
 	}
 

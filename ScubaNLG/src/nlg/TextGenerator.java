@@ -4,7 +4,6 @@ package nlg;
 import java.util.HashMap;
 
 import analytics.DiveletFeatures;
-import microplanning.generators.SafetyStop;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
@@ -49,7 +48,7 @@ public class TextGenerator implements Reporter{
 	}
 
 	private void ifCanGenerateAddSentence(NLGSentence planner, String generatorName) {
-		if (planner.canGenerate()){
+		if (planner.canPlan()){
 			phrases.put(generatorName, planner.getSentence());
 		}
 	}

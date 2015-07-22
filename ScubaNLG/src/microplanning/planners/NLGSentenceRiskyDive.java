@@ -37,7 +37,7 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 				secondDiveletFeatures.getExcessDiveDepth() > 0;
 	}
 	
-	public boolean canGenerate(){
+	public boolean canPlan(){
 		return hasExceeded();
 	}
 
