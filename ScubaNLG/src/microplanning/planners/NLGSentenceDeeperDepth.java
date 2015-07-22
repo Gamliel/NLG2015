@@ -15,8 +15,8 @@ public class NLGSentenceDeeperDepth extends NLGSentence{
 	@Override
 	public SPhraseSpec getSentence() {
 		String objREG = Integer.toString((int)diveletFeatures.getExcessDiveDepth())+"m";
-		DeeperDepth generator = new DeeperDepth();
-		return generator.microplan(objREG);
+		DeeperDepth generator = new DeeperDepth(objREG);
+		return generator.microplan();
 	}
 
 	@Override

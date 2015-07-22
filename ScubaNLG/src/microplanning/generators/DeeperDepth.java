@@ -1,7 +1,6 @@
 package microplanning.generators;
 
 import simplenlg.features.Feature;
-import simplenlg.features.LexicalFeature;
 import simplenlg.features.Tense;
 import simplenlg.framework.LexicalCategory;
 import simplenlg.framework.NLGElement;
@@ -13,7 +12,14 @@ import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
 
 public class DeeperDepth extends Generator{
-	public SPhraseSpec microplan(String objREG){
+	private String objREG;
+	
+	public DeeperDepth(String objREG) {
+		super();
+		this.objREG = objREG;
+	}
+	
+	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         
