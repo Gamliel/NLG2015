@@ -2,6 +2,7 @@ package nlg;
 
 
 import java.util.HashMap;
+import java.util.function.Function;
 
 import analytics.DiveletFeatures;
 import analytics.PADITable;
@@ -36,27 +37,39 @@ public class TextGenerator implements Reporter{
 	@Override
 	public String generateText() {
 		// TODO Auto-generated method stub
+		checkSafetyStop();
+		
+		checkShallowDive();
+		
+		checkRiskyDive();
+		
+		return null;
+	}
+
+	private void checkSafetyStop(){
 		if(PADITable.needSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime())){
 			phrases.put("SafetyStop", SafetyStop.microplan());
 		}
-		
+	}
+	
+	private void checkShallowDive(){
 		if (diveDepth <= 12.0){
 			if (diveDepth <= 9.6)
 				phrases.put("ShallowDive", ShallowDive.microplan(true));
 			else
 				phrases.put("ShallowDive", ShallowDive.microplan(false));
 		}
-		
+	}
+	
+	private void checkRiskyDive(){
 		if (hasExceeded()){
 			if (hasReallyExceeded())
 				phrases.put("RiskyDive", RiskyDive.microplan(true));
 			else
 				phrases.put("RiskyDive", RiskyDive.microplan(false));
 		}
-		
-		return null;
 	}
-
+	
 	private boolean hasReallyExceeded() {
 		return (firstDiveletFeatures.getBottomTime() / (firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1 ||
 				(secondDiveletFeatures.getBottomTime() / (secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;

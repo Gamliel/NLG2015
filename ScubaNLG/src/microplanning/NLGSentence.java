@@ -34,6 +34,7 @@ public class NLGSentence {
 		if(PADITable.needSafetyStop(depth, firstDiveletFeatures.getBottomTime())){
 			return realiser.realiseSentence(SafetyStop.microplan());
 		}
+		
 		if (depth<=9.6)
 			return realiser.realiseSentence(ShallowDive.microplan(true));
 		return realiser.realiseSentence(ShallowDive.microplan(false));
