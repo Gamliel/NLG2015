@@ -4,7 +4,6 @@ package nlg;
 import java.util.HashMap;
 
 import analytics.DiveletFeatures;
-import analytics.PADITable;
 import microplanning.generators.SafetyStop;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
