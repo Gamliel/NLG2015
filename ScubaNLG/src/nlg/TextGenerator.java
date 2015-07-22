@@ -45,7 +45,7 @@ public class TextGenerator implements Reporter{
 	private void checkSafetyStop(){
 		NLGSentenceSafetyStop generator = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
 		if (generator.canGenerate()){
-			phrases.put("SafetyStop", SafetyStop.microplan());
+			phrases.put("SafetyStop", generator.getSentence());
 		}
 	}
 	
