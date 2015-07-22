@@ -5,8 +5,8 @@ import simplenlg.lexicon.*;
 import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
-public class RiskyDive {
-	public static SPhraseSpec microplan(boolean emphatic){
+public class RiskyDive extends Generator{
+	public SPhraseSpec microplan(boolean emphatic){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         

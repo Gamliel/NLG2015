@@ -12,8 +12,8 @@ import simplenlg.phrasespec.PPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
 
-public class DeeperDepth {
-	public static SPhraseSpec microplan(String objREG){
+public class DeeperDepth extends Generator{
+	public SPhraseSpec microplan(String objREG){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         

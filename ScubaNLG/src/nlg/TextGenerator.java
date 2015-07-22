@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import analytics.DiveletFeatures;
 import analytics.PADITable;
-import microplanning.generators.RiskyDive;
 import microplanning.generators.SafetyStop;
+import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceShallowDive;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -58,24 +58,9 @@ public class TextGenerator implements Reporter{
 	}
 	
 	private void checkRiskyDive(){
-		if (hasExceeded()){
-			if (hasReallyExceeded())
-				phrases.put("RiskyDive", RiskyDive.microplan(true));
-			else
-				phrases.put("RiskyDive", RiskyDive.microplan(false));
+		NLGSentenceRiskyDive sentenceGenerator = new NLGSentenceRiskyDive(firstDiveletFeatures, secondDiveletFeatures);
+		if (sentenceGenerator.canGenerate()){
+			phrases.put("RiskyDive", sentenceGenerator.getSentence());
 		}
-	}
-	
-	private boolean hasReallyExceeded() {
-		return (firstDiveletFeatures.getBottomTime() / (firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1 ||
-				(secondDiveletFeatures.getBottomTime() / (secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
-	}
-
-	private boolean hasExceeded() {
-		return firstDiveletFeatures.getExcessBottomTime() > 0 ||
-				firstDiveletFeatures.getExcessDiveDepth() > 0 ||
-				secondDiveletFeatures.getExcessBottomTime() > 0 ||
-				secondDiveletFeatures.getExcessDiveDepth() > 0;
-	}
-
+	}	
 }

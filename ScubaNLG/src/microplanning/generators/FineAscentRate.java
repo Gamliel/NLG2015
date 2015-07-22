@@ -5,14 +5,14 @@ import simplenlg.lexicon.*;
 import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
-public class FineAscentRate {
+public class FineAscentRate extends Generator{
 	public enum AscentOrder{
 		First,
 		Second,
 		Null;
 	}
 	
-	public static SPhraseSpec microplan(AscentOrder ascent){
+	public SPhraseSpec microplan(AscentOrder ascent){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         

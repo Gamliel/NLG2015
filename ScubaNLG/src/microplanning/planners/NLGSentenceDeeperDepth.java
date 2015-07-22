@@ -2,6 +2,7 @@ package microplanning.planners;
 
 import analytics.DiveletFeatures;
 import microplanning.generators.DeeperDepth;
+import microplanning.generators.Generator;
 import simplenlg.phrasespec.SPhraseSpec;
 
 public class NLGSentenceDeeperDepth extends NLGSentence{
@@ -14,7 +15,8 @@ public class NLGSentenceDeeperDepth extends NLGSentence{
 	@Override
 	public SPhraseSpec getSentence() {
 		String objREG = Integer.toString((int)diveletFeatures.getExcessDiveDepth())+"m";
-		return DeeperDepth.microplan(objREG);
+		DeeperDepth generator = new DeeperDepth();
+		return generator.microplan(objREG);
 	}
 
 	@Override
