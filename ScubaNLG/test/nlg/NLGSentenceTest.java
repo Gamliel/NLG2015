@@ -3,7 +3,7 @@ package nlg;
 import static org.junit.Assert.*;
 
 import analytics.DiveletFeatures;
-import sentence.NLGSentence;
+import microplanning.NLGSentence;
 
 public class NLGSentenceTest {
 
