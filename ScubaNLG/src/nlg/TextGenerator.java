@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import analytics.DiveletFeatures;
 import microplanning.generators.SafetyStop;
+import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceShallowDive;
@@ -43,23 +44,23 @@ public class TextGenerator implements Reporter{
 	}
 
 	private void checkSafetyStop(){
-		NLGSentenceSafetyStop generator = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
-		if (generator.canGenerate()){
-			phrases.put("SafetyStop", generator.getSentence());
+		NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
+		ifCanGenerateAddSentence(planner, "SafetyStop");
+	}
+
+	private void ifCanGenerateAddSentence(NLGSentence planner, String generatorName) {
+		if (planner.canGenerate()){
+			phrases.put(generatorName, planner.getSentence());
 		}
 	}
 	
 	private void checkShallowDive(){
-		NLGSentenceShallowDive sentenceGenerator = new NLGSentenceShallowDive(diveDepth);
-		if (sentenceGenerator.canGenerate()){
-			phrases.put("ShallowDive", sentenceGenerator.getSentence());
-		}
+		NLGSentence planner = new NLGSentenceShallowDive(diveDepth);
+		ifCanGenerateAddSentence(planner, "ShallowDive");
 	}
 	
 	private void checkRiskyDive(){
-		NLGSentenceRiskyDive sentenceGenerator = new NLGSentenceRiskyDive(firstDiveletFeatures, secondDiveletFeatures);
-		if (sentenceGenerator.canGenerate()){
-			phrases.put("RiskyDive", sentenceGenerator.getSentence());
-		}
+		NLGSentence planner = new NLGSentenceRiskyDive(firstDiveletFeatures, secondDiveletFeatures);
+		ifCanGenerateAddSentence(planner, "RiskyDive");
 	}	
 }
