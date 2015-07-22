@@ -6,13 +6,19 @@ import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
 public class FineAscentRate extends Generator{
+	private AscentOrder ascent;
+
 	public enum AscentOrder{
 		First,
 		Second,
 		Null;
 	}
 	
-	public SPhraseSpec microplan(AscentOrder ascent){
+	public FineAscentRate(AscentOrder ascent){
+		this.ascent = ascent;
+	}
+	
+	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         
