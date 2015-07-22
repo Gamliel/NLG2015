@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import analytics.DiveletFeatures;
 import analytics.PADITable;
+import microplanning.RiskyDive;
 import microplanning.SafetyStop;
 import microplanning.ShallowDive;
 
@@ -46,7 +47,26 @@ public class TextGenerator implements Reporter{
 				phrases.put("ShallowDive", ShallowDive.microplan(false));
 		}
 		
+		if (hasExceeded()){
+			if (hasReallyExceeded())
+				phrases.put("RiskyDive", RiskyDive.microplan(true));
+			else
+				phrases.put("RiskyDive", RiskyDive.microplan(false));
+		}
+		
 		return null;
+	}
+
+	private boolean hasReallyExceeded() {
+		return (firstDiveletFeatures.getBottomTime() / (firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1 ||
+				(secondDiveletFeatures.getBottomTime() / (secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
+	}
+
+	private boolean hasExceeded() {
+		return firstDiveletFeatures.getExcessBottomTime() > 0 ||
+				firstDiveletFeatures.getExcessDiveDepth() > 0 ||
+				secondDiveletFeatures.getExcessBottomTime() > 0 ||
+				secondDiveletFeatures.getExcessDiveDepth() > 0;
 	}
 
 }
