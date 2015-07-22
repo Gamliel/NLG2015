@@ -1,16 +1,23 @@
 package microplanning.generators;
 
-import simplenlg.framework.*;
-import simplenlg.lexicon.*;
-import simplenlg.phrasespec.*;
-import simplenlg.features.*;
+import simplenlg.features.Feature;
+import simplenlg.features.Tense;
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.phrasespec.NPPhraseSpec;
+import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.phrasespec.VPPhraseSpec;
 
 public class ShallowDive extends Generator{
 	private boolean emphatic;
 	
-	public ShallowDive(boolean emphatic) {
+	protected ShallowDive(boolean emphatic) {
 		super();
 		this.emphatic = emphatic;
+	}
+	
+	public ShallowDive() {
+		this(false);
 	}
 
 	@Override

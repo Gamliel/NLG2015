@@ -1,5 +1,6 @@
 package microplanning.planners;
 
+import microplanning.generators.ReallyShallowDive;
 import microplanning.generators.ShallowDive;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -13,11 +14,11 @@ public class NLGSentenceShallowDive extends NLGSentence {
 
 	public SPhraseSpec getSentence() {
 		if (depth<=9.6){
-			ShallowDive generator = new ShallowDive(true);
+			ReallyShallowDive generator = new ReallyShallowDive();
 			return generator.microplan();
 		}
 		//else
-		ShallowDive generator = new ShallowDive(false);
+		ShallowDive generator = new ShallowDive();
 		return generator.microplan();
 	}
 	
