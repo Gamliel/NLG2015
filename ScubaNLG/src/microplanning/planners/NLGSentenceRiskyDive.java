@@ -18,11 +18,11 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 	public SPhraseSpec getSentence() {
 		if (hasReallyExceeded()){
 			ReallyRiskyDive generator = new ReallyRiskyDive();
-			return generator.microplan();
+			return generator.generate();
 		}
 		else{
 			RiskyDive generator = new RiskyDive();
-			return generator.microplan();
+			return generator.generate();
 		}
 	}
 	

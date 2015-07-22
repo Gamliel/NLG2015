@@ -16,7 +16,7 @@ public class NLGSentenceSafetyStop extends NLGSentence {
 
 	public SPhraseSpec getSentence() {
 		SafetyStop generator = new SafetyStop();
-		return generator.microplan();
+		return generator.generate();
 	}
 	
 	public boolean canPlan(){

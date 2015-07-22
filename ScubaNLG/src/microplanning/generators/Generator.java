@@ -4,6 +4,6 @@ import simplenlg.phrasespec.SPhraseSpec;
 
 public abstract class Generator {
 
-	public abstract SPhraseSpec microplan();
+	public abstract SPhraseSpec generate();
 
 }

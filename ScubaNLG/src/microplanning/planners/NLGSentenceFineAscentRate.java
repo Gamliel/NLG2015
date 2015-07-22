@@ -17,7 +17,7 @@ public class NLGSentenceFineAscentRate extends NLGSentence{
 	@Override
 	public SPhraseSpec getSentence() {
 		FineAscentRate generator = new FineAscentRate(order);
-		return generator.microplan();
+		return generator.generate();
 	}
 
 	@Override

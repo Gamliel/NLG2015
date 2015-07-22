@@ -15,11 +15,11 @@ public class NLGSentenceShallowDive extends NLGSentence {
 	public SPhraseSpec getSentence() {
 		if (depth<=9.6){
 			ReallyShallowDive generator = new ReallyShallowDive();
-			return generator.microplan();
+			return generator.generate();
 		}
 		//else
 		ShallowDive generator = new ShallowDive();
-		return generator.microplan();
+		return generator.generate();
 	}
 	
 	@Override

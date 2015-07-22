@@ -18,7 +18,7 @@ public class RiskyDive extends Generator{
 	}
 
 	@Override
-	public SPhraseSpec microplan(){
+	public SPhraseSpec generate(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         
