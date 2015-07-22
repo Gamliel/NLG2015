@@ -1,4 +1,4 @@
-package microplanning;
+package microplanning.generators;
 
 import simplenlg.features.Feature;
 import simplenlg.framework.NLGFactory;

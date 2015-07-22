@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 import analytics.DiveletFeatures;
 import analytics.PADITable;
-import microplanning.NLGSentenceShallowDive;
-import microplanning.RiskyDive;
-import microplanning.SafetyStop;
+import microplanning.generators.RiskyDive;
+import microplanning.generators.SafetyStop;
+import microplanning.planners.NLGSentenceShallowDive;
 import simplenlg.phrasespec.SPhraseSpec;
 
 public class TextGenerator implements Reporter{

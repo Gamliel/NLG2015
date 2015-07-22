@@ -1,4 +1,4 @@
-package microplanning;
+package microplanning.planners;
 
 import simplenlg.phrasespec.SPhraseSpec;
 

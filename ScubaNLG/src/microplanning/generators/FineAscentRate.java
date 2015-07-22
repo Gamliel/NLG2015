@@ -1,35 +1,37 @@
-package microplanning;
+package microplanning.generators;
 
 import simplenlg.framework.*;
 import simplenlg.lexicon.*;
 import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
-enum Ascent{
-	First,
-	Second,
-	Null;
-}
-
-public class AscentRate {
-	public static SPhraseSpec microplan(Ascent ascent){
+public class FineAscentRate {
+	public enum AscentOrder{
+		First,
+		Second,
+		Null;
+	}
+	
+	public static SPhraseSpec microplan(AscentOrder ascent){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         
         SPhraseSpec p = nlgFactory.createClause();
         
         NPPhraseSpec subject = nlgFactory.createNounPhrase("ascent rate");
+        subject.setDeterminer("your");
         
-        if (ascent.equals(Ascent.First))
-        	subject.setPreModifier("your first");	
-        else if(ascent.equals(Ascent.Second))
-        	subject.setPreModifier("your second");
-        else
-        	subject.setPreModifier("your");
+        if (ascent.equals(AscentOrder.First))
+        	subject.setPreModifier("first");	
+        else if(ascent.equals(AscentOrder.Second))
+        	subject.setPreModifier("second");
         
         VPPhraseSpec verb = nlgFactory.createVerbPhrase("be");
         verb.addComplement("fine");
         p.setFeature(Feature.TENSE, Tense.PAST);
+        
+        p.setSubject(subject);
+        p.setVerb(verb);
         
         return p;
         

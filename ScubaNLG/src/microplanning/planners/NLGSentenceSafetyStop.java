@@ -1,6 +1,7 @@
-package microplanning;
+package microplanning.planners;
 
 import analytics.PADITable;
+import microplanning.generators.SafetyStop;
 import simplenlg.phrasespec.SPhraseSpec;
 
 public class NLGSentenceSafetyStop extends NLGSentence {

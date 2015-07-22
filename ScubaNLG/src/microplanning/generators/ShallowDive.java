@@ -1,11 +1,11 @@
-package microplanning;
+package microplanning.generators;
 
 import simplenlg.framework.*;
 import simplenlg.lexicon.*;
 import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
-public class RiskyDive {
+public class ShallowDive {
 	public static SPhraseSpec microplan(boolean emphatic){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
@@ -19,9 +19,9 @@ public class RiskyDive {
         object.setDeterminer("a");
         
         if (emphatic)
-        	object.addPreModifier("really risky");
+        	object.addPreModifier("really shallow");
         else
-        	object.addPreModifier("risky");
+        	object.addModifier("shallow");
         
         p.setSubject(subject);
         p.setObject(object);

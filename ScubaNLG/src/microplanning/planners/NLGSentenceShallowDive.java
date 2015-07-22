@@ -1,5 +1,6 @@
-package microplanning;
+package microplanning.planners;
 
+import microplanning.generators.ShallowDive;
 import simplenlg.phrasespec.SPhraseSpec;
 
 public class NLGSentenceShallowDive extends NLGSentence {
