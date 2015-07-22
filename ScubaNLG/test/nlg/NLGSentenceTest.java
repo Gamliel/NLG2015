@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import analytics.DiveletFeatures;
 import microplanning.generators.FineAscentRate.AscentOrder;
 import microplanning.planners.NLGSentence;
+import microplanning.planners.NLGSentenceDeeperDepth;
 import microplanning.planners.NLGSentenceFineAscentRate;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
@@ -86,5 +87,14 @@ public class NLGSentenceTest {
 		diveletFeature.setExcessAscentSpeed(0);
         NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, AscentOrder.Second);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your second ascent rate was fine.");
+	}
+	
+	@org.junit.Test
+	public void acceptDeeperDepth(){
+		DiveletFeatures diveletFeature = new DiveletFeatures();
+		diveletFeature.setDiveDepth(44);
+		diveletFeature.setExcessDiveDepth(2);
+        NLGSentence unit = new NLGSentenceDeeperDepth(diveletFeature);
+		assertEquals(realiser.realiseSentence(unit.getSentence()), "You went 2m deeper than the PADI recommended depth limit of 42m.");
 	}
 }
