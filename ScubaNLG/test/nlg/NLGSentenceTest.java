@@ -6,6 +6,7 @@ import com.mysql.jdbc.NotImplemented;
 
 import analytics.DiveletFeatures;
 import microplanning.NLGSentence;
+import microplanning.NLGSentenceSafetyStop;
 import microplanning.NLGSentenceShallowDive;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.realiser.english.Realiser;
@@ -32,10 +33,8 @@ public class NLGSentenceTest {
 	
 	@org.junit.Test
 	public void acceptShouldHaveMadeAStop() throws NotImplemented{
-        NLGSentence unit = new NLGSentence();
-		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
-		firstDiveletFeature.setBottomTime(25);
-		unit.setFeatures(85,firstDiveletFeature);
+        NLGSentence unit = new NLGSentenceSafetyStop(85,25);
+		assertEquals(unit.canGenerate(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "You should have made a safety stop on your way up.");
 	}
 	

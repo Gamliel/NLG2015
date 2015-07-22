@@ -2,16 +2,13 @@ package nlg;
 
 
 import java.util.HashMap;
-import java.util.function.Function;
 
 import analytics.DiveletFeatures;
 import analytics.PADITable;
 import microplanning.NLGSentenceShallowDive;
 import microplanning.RiskyDive;
 import microplanning.SafetyStop;
-import microplanning.ShallowDive;
-
-import simplenlg.phrasespec.*;
+import simplenlg.phrasespec.SPhraseSpec;
 
 public class TextGenerator implements Reporter{
 	

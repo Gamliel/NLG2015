@@ -3,10 +3,7 @@ package microplanning;
 import com.mysql.jdbc.NotImplemented;
 
 import analytics.DiveletFeatures;
-import analytics.PADITable;
-import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.SPhraseSpec;
-import simplenlg.realiser.english.Realiser;
 
 public class NLGSentence {
 	
@@ -26,10 +23,6 @@ public class NLGSentence {
         		return RiskyDive.microplan(false);
         }
         
-		if(PADITable.needSafetyStop(depth, firstDiveletFeatures.getBottomTime())){
-			return SafetyStop.microplan();
-		}
-		
 		throw new NotImplemented();
 	}
 	
