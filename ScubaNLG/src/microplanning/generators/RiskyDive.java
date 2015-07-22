@@ -8,9 +8,13 @@ import simplenlg.features.*;
 public class RiskyDive extends Generator{
 	private boolean emphatic;
 	
-	public RiskyDive(boolean emphatic) {
+	protected RiskyDive(boolean emphatic) {
 		super();
 		this.emphatic = emphatic;
+	}
+	
+	public RiskyDive() {
+		this(false);
 	}
 
 	@Override

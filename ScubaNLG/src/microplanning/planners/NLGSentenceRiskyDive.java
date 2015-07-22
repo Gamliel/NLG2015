@@ -1,6 +1,7 @@
 package microplanning.planners;
 
 import analytics.DiveletFeatures;
+import microplanning.generators.ReallyRiskyDive;
 import microplanning.generators.RiskyDive;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -16,11 +17,11 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 
 	public SPhraseSpec getSentence() {
 		if (hasReallyExceeded()){
-			RiskyDive generator = new RiskyDive(true);
+			ReallyRiskyDive generator = new ReallyRiskyDive();
 			return generator.microplan();
 		}
 		else{
-			RiskyDive generator = new RiskyDive(false);
+			RiskyDive generator = new RiskyDive();
 			return generator.microplan();
 		}
 	}
