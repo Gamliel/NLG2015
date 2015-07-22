@@ -11,12 +11,12 @@ import simplenlg.lexicon.Lexicon;
 import simplenlg.realiser.english.Realiser;
 
 public class NLGSentenceTest {
+	
+	private Lexicon lexicon = Lexicon.getDefaultLexicon();
+    private Realiser realiser = new Realiser(lexicon);
 
 	@org.junit.Test
 	public void acceptDiveDepthForShallowDive() throws NotImplemented {
-		Lexicon lexicon = Lexicon.getDefaultLexicon();
-        Realiser realiser = new Realiser(lexicon);
-
         NLGSentence unit = new NLGSentenceShallowDive(12.0);
 		assertEquals(unit.canGenerate(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a shallow dive.");
@@ -24,9 +24,6 @@ public class NLGSentenceTest {
 	
 	@org.junit.Test
 	public void acceptDiveDepthForAReallyShallowDive() throws NotImplemented{
-		Lexicon lexicon = Lexicon.getDefaultLexicon();
-        Realiser realiser = new Realiser(lexicon);
-
         NLGSentence unit = new NLGSentenceShallowDive(9.0);
 		assertEquals(unit.canGenerate(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really shallow dive.");
@@ -35,9 +32,6 @@ public class NLGSentenceTest {
 	
 	@org.junit.Test
 	public void acceptShouldHaveMadeAStop() throws NotImplemented{
-		Lexicon lexicon = Lexicon.getDefaultLexicon();
-        Realiser realiser = new Realiser(lexicon);
-
         NLGSentence unit = new NLGSentence();
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setBottomTime(25);
@@ -47,9 +41,6 @@ public class NLGSentenceTest {
 	
 	@org.junit.Test
 	public void acceptRiskyDive() throws NotImplemented{
-		Lexicon lexicon = Lexicon.getDefaultLexicon();
-        Realiser realiser = new Realiser(lexicon);
-
         NLGSentence unit = new NLGSentence();
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setExcessBottomTime(6);
@@ -62,9 +53,6 @@ public class NLGSentenceTest {
 	
 	@org.junit.Test
 	public void acceptReallyRiskyDive() throws NotImplemented{
-		Lexicon lexicon = Lexicon.getDefaultLexicon();
-        Realiser realiser = new Realiser(lexicon);
-
         NLGSentence unit = new NLGSentence();
 		DiveletFeatures firstDiveletFeature = new DiveletFeatures();
 		firstDiveletFeature.setExcessBottomTime(12);
