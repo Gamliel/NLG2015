@@ -6,7 +6,14 @@ import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
 public class RiskyDive extends Generator{
-	public SPhraseSpec microplan(boolean emphatic){
+	private boolean emphatic;
+	
+	public RiskyDive(boolean emphatic) {
+		super();
+		this.emphatic = emphatic;
+	}
+
+	public SPhraseSpec microplan(){
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         

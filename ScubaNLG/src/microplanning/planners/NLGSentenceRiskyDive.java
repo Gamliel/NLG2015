@@ -15,11 +15,14 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 	}
 
 	public SPhraseSpec getSentence() {
-		RiskyDive generator = new RiskyDive();
-		if (hasReallyExceeded())
-			return generator.microplan(true);
-		else
-			return generator.microplan(false);
+		if (hasReallyExceeded()){
+			RiskyDive generator = new RiskyDive(true);
+			return generator.microplan();
+		}
+		else{
+			RiskyDive generator = new RiskyDive(false);
+			return generator.microplan();
+		}
 	}
 	
 	private boolean hasReallyExceeded() {
