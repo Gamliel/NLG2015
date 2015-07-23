@@ -78,17 +78,18 @@ public class TextGenerator implements Reporter{
 	}
 
 	private void checkExceededNDL(){
-		if (numOfDivelets == 1){
-			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.UNIQUE);
-			ifCanGenerateAddSentence(planner, "Unique_ExceededNDL");
-		} else {
-			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.FIRST);
-			ifCanGenerateAddSentence(planner, "First_ExceededNDL");
-			
-			planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.SECOND);
-			ifCanGenerateAddSentence(planner, "Second_ExceededNDL");
+		if (numOfDivelets > 0){
+			if (numOfDivelets == 1){
+				NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.UNIQUE);
+				ifCanGenerateAddSentence(planner, "Unique_ExceededNDL");
+			} else {
+				NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.FIRST);
+				ifCanGenerateAddSentence(planner, "First_ExceededNDL");
+				
+				planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.SECOND);
+				ifCanGenerateAddSentence(planner, "Second_ExceededNDL");
+			}
 		}
-		
 	}
 	
 	private void checkSafetyStop(){
