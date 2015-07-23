@@ -4,7 +4,9 @@ package nlg;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import analytics.DiveFeatures;
 import analytics.DiveletFeatures;
@@ -31,7 +33,7 @@ public class TextGenerator implements Reporter{
 	
 	private DiveFeatures diveFeatures;
 	
-	HashMap<String, SPhraseSpec> phrases = new HashMap<String, SPhraseSpec>();
+	Map<String, SPhraseSpec> phrases = new TreeMap<String, SPhraseSpec>();
 	
 	public TextGenerator(double diveDepth, 
 			int numOfDivelets, 
@@ -74,7 +76,7 @@ public class TextGenerator implements Reporter{
 	private void checkSafetyStop(){
 		if (firstDiveletFeatures != null){
 			NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
-			ifCanGenerateAddSentence(planner, "SafetyStop");
+			ifCanGenerateAddSentence(planner, "L10_SafetyStop");
 		}
 	}
 
@@ -86,11 +88,11 @@ public class TextGenerator implements Reporter{
 	
 	private void checkShallowDive(){
 		NLGSentence planner = new NLGSentenceShallowDive(diveDepth);
-		ifCanGenerateAddSentence(planner, "ShallowDive");
+		ifCanGenerateAddSentence(planner, "L01_ShallowDive");
 	}
 	
 	private void checkRiskyDive(){
 		NLGSentence planner = new NLGSentenceRiskyDive(firstDiveletFeatures, secondDiveletFeatures);
-		ifCanGenerateAddSentence(planner, "RiskyDive");
+		ifCanGenerateAddSentence(planner, "L02_RiskyDive");
 	}	
 }
