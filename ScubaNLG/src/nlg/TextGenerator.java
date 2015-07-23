@@ -1,7 +1,9 @@
 package nlg;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import analytics.DiveFeatures;
@@ -10,6 +12,8 @@ import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceShallowDive;
+import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGFactory;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.realiser.english.Realiser;
@@ -18,6 +22,7 @@ public class TextGenerator implements Reporter{
 	
 	private Lexicon lexicon = Lexicon.getDefaultLexicon();
     private Realiser realiser = new Realiser(lexicon);
+    NLGFactory nlgFactory = new NLGFactory(lexicon);
 	
 	double diveDepth;
 	int numOfDivelets;
@@ -55,17 +60,15 @@ public class TextGenerator implements Reporter{
 		
 		checkRiskyDive();
 		
-		
-		String result = "";
+		List<DocumentElement> sentences = new ArrayList<DocumentElement>();
 		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
-			result += realiser.realiseSentence(element.getValue());
+			DocumentElement s = nlgFactory.createSentence(element.getValue());
+			sentences.add(s);
 		}
 
-		if (result.equals("")){
-			result = " ** NO TEXT GENERATED **";
-		}
-		
-		return result;
+		DocumentElement paragraph = nlgFactory.createParagraph(sentences);
+				
+		return realiser.realise(paragraph).getRealisation();
 	}
 
 	private void checkSafetyStop(){
