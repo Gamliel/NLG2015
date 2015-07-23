@@ -1,6 +1,6 @@
 package nlg;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import analytics.DiveletFeatures;
 import microplanning.generators.FineAscentRate.AscentOrder;
@@ -10,7 +10,6 @@ import microplanning.planners.NLGSentenceFineAscentRate;
 import microplanning.planners.NLGSentenceFineDive;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
-import microplanning.planners.NLGSentenceShallowDive;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.realiser.english.Realiser;
 
@@ -27,9 +26,8 @@ public class TextGeneratorTest {
 	
 	@org.junit.Test
 	public void acceptDiveDepthForAReallyShallowDive() {
-        NLGSentence unit = new NLGSentenceShallowDive(9.0);
-		assertEquals(unit.canPlan(), true);
-		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really shallow dive.");
+		TextGenerator textGenerator = new TextGenerator(9.0, 0, null, null);
+		assertEquals(textGenerator.generateText().contains("This was a really shallow dive."),true);
 	}
 	
 	

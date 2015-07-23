@@ -33,7 +33,6 @@ public class NLGSentenceTest {
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really shallow dive.");
 	}
 	
-	
 	@org.junit.Test
 	public void acceptShouldHaveMadeAStop(){
         NLGSentence unit = new NLGSentenceSafetyStop(85,25);
