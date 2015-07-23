@@ -107,7 +107,7 @@ public class NLGSentenceTest {
 		diveletFeature.setExcessAscentSpeed(0);
 		diveletFeature.setExcessBottomTime(0);
 		diveletFeature.setExcessDiveDepth(0);
-        NLGSentence unit = new NLGSentenceFineDive(diveletFeature);
+        NLGSentence unit = new NLGSentenceFineDive(diveletFeature, DiveType.UNIQUE);
         assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This dive was fine.");
 	}

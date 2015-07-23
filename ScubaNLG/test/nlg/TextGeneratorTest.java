@@ -3,6 +3,7 @@ package nlg;
 import static org.junit.Assert.assertEquals;
 
 import analytics.DiveletFeatures;
+import microplanning.generators.DiveType;
 import microplanning.generators.FineAscentRate.AscentOrder;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceDeeperDepth;
@@ -102,7 +103,7 @@ public class TextGeneratorTest {
 		diveletFeature.setExcessAscentSpeed(0);
 		diveletFeature.setExcessBottomTime(0);
 		diveletFeature.setExcessDiveDepth(0);
-        NLGSentence unit = new NLGSentenceFineDive(diveletFeature);
+        NLGSentence unit = new NLGSentenceFineDive(diveletFeature, DiveType.UNIQUE);
         assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "This dive was fine.");
 	}
@@ -111,7 +112,7 @@ public class TextGeneratorTest {
 	public void acceptExceededNDL(){
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.getBottomTime();
-		NLGSentence unit = new NLGSentenceFineDive(diveletFeature);
+		NLGSentence unit = new NLGSentenceFineDive(diveletFeature, DiveType.UNIQUE);
         assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "At this depth, you stayed longer than the NDL by 12mins which was 150% longer.");
 	}

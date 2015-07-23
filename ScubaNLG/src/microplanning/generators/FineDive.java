@@ -6,8 +6,10 @@ import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
 public class FineDive extends Generator{
+	private DiveType type;
 	
-	public FineDive(){
+	public FineDive(DiveType type){
+		this.type = type;
 	}
 	
 	@Override
