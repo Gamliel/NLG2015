@@ -39,7 +39,7 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 	}
 	
 	public boolean canPlan(){
-		return hasExceeded();
+		return firstDiveletFeatures!= null && secondDiveletFeatures != null && hasExceeded();
 	}
 
 }
