@@ -13,6 +13,7 @@ import analytics.DiveletFeatures;
 import microplanning.generators.DiveType;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceExceededNDL;
+import microplanning.planners.NLGSentenceFineDive;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceShallowDive;
@@ -66,6 +67,8 @@ public class TextGenerator implements Reporter{
 		
 		checkExceededNDL();
 		
+		checkFineDive();
+		
 		List<DocumentElement> sentences = new ArrayList<DocumentElement>();
 		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
 			DocumentElement s = nlgFactory.createSentence(element.getValue());
@@ -78,17 +81,28 @@ public class TextGenerator implements Reporter{
 	}
 
 	private void checkExceededNDL(){
-		if (numOfDivelets > 0){
-			if (numOfDivelets == 1){
-				NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.UNIQUE);
-				ifCanGenerateAddSentence(planner, "Unique_ExceededNDL");
-			} else {
-				NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.FIRST);
-				ifCanGenerateAddSentence(planner, "First_ExceededNDL");
-				
-				planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.SECOND);
-				ifCanGenerateAddSentence(planner, "Second_ExceededNDL");
-			}
+		if (numOfDivelets == 1){
+			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.UNIQUE);
+			ifCanGenerateAddSentence(planner, "Unique_ExceededNDL");
+		} else if (numOfDivelets == 2){
+			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.FIRST);
+			ifCanGenerateAddSentence(planner, "First_ExceededNDL");
+			
+			planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.SECOND);
+			ifCanGenerateAddSentence(planner, "Second_ExceededNDL");
+		}
+	}
+	
+	private void checkFineDive(){
+		if (numOfDivelets == 1){
+			NLGSentence planner = new NLGSentenceFineDive(firstDiveletFeatures, DiveType.UNIQUE);
+			ifCanGenerateAddSentence(planner, "Unique_FineDive");
+		} else if (numOfDivelets == 2){
+			NLGSentence planner = new NLGSentenceFineDive(firstDiveletFeatures, DiveType.FIRST);
+			ifCanGenerateAddSentence(planner, "First_FineDive");
+			
+			planner = new NLGSentenceFineDive(firstDiveletFeatures, DiveType.SECOND);
+			ifCanGenerateAddSentence(planner, "Second_FineDive");
 		}
 	}
 	
