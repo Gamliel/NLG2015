@@ -2,22 +2,31 @@ package nlg;
 
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
+import analytics.DiveFeatures;
 import analytics.DiveletFeatures;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceShallowDive;
+import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.realiser.english.Realiser;
 
 public class TextGenerator implements Reporter{
+	
+	private Lexicon lexicon = Lexicon.getDefaultLexicon();
+    private Realiser realiser = new Realiser(lexicon);
 	
 	double diveDepth;
 	int numOfDivelets;
 	DiveletFeatures firstDiveletFeatures;
 	DiveletFeatures secondDiveletFeatures; 
 	
-	HashMap<String, SPhraseSpec> phrases;
+	private DiveFeatures diveFeatures;
+	
+	HashMap<String, SPhraseSpec> phrases = new HashMap<String, SPhraseSpec>();
 	
 	public TextGenerator(double diveDepth, 
 			int numOfDivelets, 
@@ -27,10 +36,17 @@ public class TextGenerator implements Reporter{
 		this.numOfDivelets = numOfDivelets;
 		this.firstDiveletFeatures = firstDiveletFeatures;
 		this.secondDiveletFeatures = secondDiveletFeatures;
-		
-		this.phrases = new HashMap<String, SPhraseSpec>();
 	}
 	
+	
+	public TextGenerator(DiveFeatures diveFeatures) {
+		this.diveFeatures = diveFeatures;
+		this.diveDepth = diveFeatures.getDiveDepth();
+		this.numOfDivelets = diveFeatures.getNumOfDivelets();
+		this.firstDiveletFeatures = diveFeatures.getFirstDiveletFeatures();
+		this.secondDiveletFeatures = diveFeatures.getSecondDiveletFeatures();
+	}
+
 	@Override
 	public String generateText() {
 		checkSafetyStop();
@@ -39,12 +55,24 @@ public class TextGenerator implements Reporter{
 		
 		checkRiskyDive();
 		
-		return null;
+		
+		String result = "";
+		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
+			result += realiser.realiseSentence(element.getValue());
+		}
+
+		if (result.equals("")){
+			result = " ** NO TEXT GENERATED **";
+		}
+		
+		return result;
 	}
 
 	private void checkSafetyStop(){
-		NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
-		ifCanGenerateAddSentence(planner, "SafetyStop");
+		if (firstDiveletFeatures != null){
+			NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
+			ifCanGenerateAddSentence(planner, "SafetyStop");
+		}
 	}
 
 	private void ifCanGenerateAddSentence(NLGSentence planner, String generatorName) {

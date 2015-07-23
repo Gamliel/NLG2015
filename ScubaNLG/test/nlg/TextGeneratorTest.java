@@ -1,39 +1,35 @@
 package nlg;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import analytics.DiveletFeatures;
 import microplanning.generators.FineAscentRate.AscentOrder;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceDeeperDepth;
-import microplanning.planners.NLGSentenceExceededNDL;
 import microplanning.planners.NLGSentenceFineAscentRate;
 import microplanning.planners.NLGSentenceFineDive;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
-import microplanning.planners.NLGSentenceSecondDeeperFirst;
-import microplanning.planners.NLGSentenceShallowDive;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.realiser.english.Realiser;
 
-public class NLGSentenceTest {
+public class TextGeneratorTest {
 	
 	private Lexicon lexicon = Lexicon.getDefaultLexicon();
     private Realiser realiser = new Realiser(lexicon);
 
 	@org.junit.Test
 	public void acceptDiveDepthForShallowDive() {
-        NLGSentence unit = new NLGSentenceShallowDive(12.0);
-		assertEquals(unit.canPlan(), true);
-		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a shallow dive.");
+		TextGenerator textGenerator = new TextGenerator(12.0, 0, null, null);
+		assertEquals(textGenerator.generateText().contains("This was a shallow dive."), true);
 	}
 	
 	@org.junit.Test
 	public void acceptDiveDepthForAReallyShallowDive() {
-        NLGSentence unit = new NLGSentenceShallowDive(9.0);
-		assertEquals(unit.canPlan(), true);
-		assertEquals(realiser.realiseSentence(unit.getSentence()), "This was a really shallow dive.");
+		TextGenerator textGenerator = new TextGenerator(9.0, 0, null, null);
+		assertEquals(textGenerator.generateText().contains("This was a really shallow dive."),true);
 	}
+	
 	
 	@org.junit.Test
 	public void acceptShouldHaveMadeAStop(){
@@ -114,22 +110,9 @@ public class NLGSentenceTest {
 	@org.junit.Test
 	public void acceptExceededNDL(){
 		DiveletFeatures diveletFeature = new DiveletFeatures();
-		diveletFeature.setExcessBottomTime(12L);
-		diveletFeature.setBottomTime(20L);
-		NLGSentence unit = new NLGSentenceExceededNDL(diveletFeature);
+		diveletFeature.getBottomTime();
+		NLGSentence unit = new NLGSentenceFineDive(diveletFeature);
         assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "At this depth, you stayed longer than the NDL by 12mins which was 150% longer.");
-	}
-	
-	@org.junit.Test
-	public void acceptSecondDeeperFirst(){
-		DiveletFeatures firstDivelet = new DiveletFeatures();
-		firstDivelet.setDiveDepth(30);
-		DiveletFeatures secondDivelet = new DiveletFeatures();
-		secondDivelet.setDiveDepth(45);
-		
-		NLGSentence unit = new NLGSentenceSecondDeeperFirst(firstDivelet, secondDivelet);
-        assertEquals(unit.canPlan(), true);
-		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your second dive was deeper than the first one which is really not recommended.");
 	}
 }
