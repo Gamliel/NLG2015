@@ -24,10 +24,9 @@ public class NLGSentenceFineDive extends NLGSentence {
 
 	@Override
 	public boolean canPlan() {
-		return diveletFeature != null &&
-				diveletFeature.getExcessAscentSpeed() >=0 &&
-				diveletFeature.getExcessBottomTime() >=0 &&
-				diveletFeature.getExcessDiveDepth() >= 0;
+		return diveletFeature.getExcessAscentSpeed() <=0.0 &&
+				(double)diveletFeature.getExcessBottomTime() <=0.0 &&
+				diveletFeature.getExcessDiveDepth() <= 0.0;
 	}
 
 }

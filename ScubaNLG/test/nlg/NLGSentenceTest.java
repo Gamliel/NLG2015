@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import analytics.DiveletFeatures;
 import microplanning.generators.DiveType;
-import microplanning.generators.FineAscentRate.AscentOrder;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceDeeperDepth;
 import microplanning.planners.NLGSentenceExceededNDL;
@@ -70,7 +69,7 @@ public class NLGSentenceTest {
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.setAscentSpeed(30);
 		diveletFeature.setExcessAscentSpeed(0);
-        NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, AscentOrder.Null);
+        NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, DiveType.UNIQUE);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your ascent rate was fine.");
 	}
 	
@@ -79,7 +78,7 @@ public class NLGSentenceTest {
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.setAscentSpeed(30);
 		diveletFeature.setExcessAscentSpeed(0);
-        NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, AscentOrder.First);
+        NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, DiveType.FIRST);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your first ascent rate was fine.");
 	}
 	
@@ -88,7 +87,7 @@ public class NLGSentenceTest {
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.setAscentSpeed(30);
 		diveletFeature.setExcessAscentSpeed(0);
-        NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, AscentOrder.Second);
+        NLGSentence unit = new NLGSentenceFineAscentRate(diveletFeature, DiveType.SECOND);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your second ascent rate was fine.");
 	}
 	

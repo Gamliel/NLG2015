@@ -27,19 +27,29 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 	}
 	
 	private boolean hasReallyExceeded() {
-		return (firstDiveletFeatures.getBottomTime() / (firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1 ||
-				(secondDiveletFeatures.getBottomTime() / (secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
+//		if (firstDiveletFeatures != null){
+//			return (firstDiveletFeatures.getBottomTime() / 
+//					(firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1;
+//		} else if (secondDiveletFeatures != null){
+//			return  (secondDiveletFeatures.getBottomTime() / 
+//					(secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
+//		}
+		return false;
 	}
 
 	private boolean hasExceeded() {
-		return firstDiveletFeatures.getExcessBottomTime() > 0 ||
-				firstDiveletFeatures.getExcessDiveDepth() > 0 ||
-				secondDiveletFeatures.getExcessBottomTime() > 0 ||
-				secondDiveletFeatures.getExcessDiveDepth() > 0;
+		if (firstDiveletFeatures != null){
+			return (double)firstDiveletFeatures.getExcessBottomTime() > 0.0 ||
+					firstDiveletFeatures.getExcessDiveDepth() > 0.0;
+		} else if (secondDiveletFeatures != null){
+			return  (double)secondDiveletFeatures.getExcessBottomTime() > 0.0 ||
+					secondDiveletFeatures.getExcessDiveDepth() > 0.0;
+		}
+		return false;
 	}
 	
 	public boolean canPlan(){
-		return firstDiveletFeatures!= null && secondDiveletFeatures != null && hasExceeded();
+		return hasExceeded();
 	}
 
 }

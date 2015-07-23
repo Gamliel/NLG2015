@@ -6,16 +6,10 @@ import simplenlg.phrasespec.*;
 import simplenlg.features.*;
 
 public class FineAscentRate extends Generator{
-	private AscentOrder ascent;
-
-	public enum AscentOrder{
-		First,
-		Second,
-		Null;
-	}
+	private DiveType type;
 	
-	public FineAscentRate(AscentOrder ascent){
-		this.ascent = ascent;
+	public FineAscentRate(DiveType type){
+		this.type = type;
 	}
 	
 	@Override
@@ -28,9 +22,9 @@ public class FineAscentRate extends Generator{
         NPPhraseSpec subject = nlgFactory.createNounPhrase("ascent rate");
         subject.setDeterminer("your");
         
-        if (ascent.equals(AscentOrder.First))
+        if (type.equals(DiveType.FIRST))
         	subject.setPreModifier("first");	
-        else if(ascent.equals(AscentOrder.Second))
+        else if(type.equals(DiveType.SECOND))
         	subject.setPreModifier("second");
         
         VPPhraseSpec verb = nlgFactory.createVerbPhrase("be");

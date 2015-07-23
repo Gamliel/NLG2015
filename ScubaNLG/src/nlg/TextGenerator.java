@@ -12,10 +12,13 @@ import analytics.DiveFeatures;
 import analytics.DiveletFeatures;
 import microplanning.generators.DiveType;
 import microplanning.planners.NLGSentence;
+import microplanning.planners.NLGSentenceDeeperDepth;
 import microplanning.planners.NLGSentenceExceededNDL;
+import microplanning.planners.NLGSentenceFineAscentRate;
 import microplanning.planners.NLGSentenceFineDive;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
+import microplanning.planners.NLGSentenceSecondDeeperFirst;
 import microplanning.planners.NLGSentenceShallowDive;
 import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
@@ -59,15 +62,21 @@ public class TextGenerator implements Reporter{
 
 	@Override
 	public String generateText() {
-		checkSafetyStop();
-		
-		checkShallowDive();
+		checkFineDive();
 		
 		checkRiskyDive();
 		
+		checkShallowDive();
+		
 		checkExceededNDL();
 		
-		checkFineDive();
+		checkDeeperDepth();
+		
+		checkFineAscentRate();
+		
+		checkSecondDeeperFirst();
+		
+		checkSafetyStop();
 		
 		List<DocumentElement> sentences = new ArrayList<DocumentElement>();
 		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
@@ -88,8 +97,33 @@ public class TextGenerator implements Reporter{
 			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.FIRST);
 			ifCanGenerateAddSentence(planner, "First_ExceededNDL");
 			
-			planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.SECOND);
+			planner = new NLGSentenceExceededNDL(secondDiveletFeatures, DiveType.SECOND);
 			ifCanGenerateAddSentence(planner, "Second_ExceededNDL");
+		}
+	}
+	
+	private void checkDeeperDepth(){
+		if (numOfDivelets > 0){
+			NLGSentence planner = new NLGSentenceDeeperDepth(firstDiveletFeatures);
+			ifCanGenerateAddSentence(planner, "DeeperDepth");
+			
+			if (!planner.canPlan() && secondDiveletFeatures != null){
+				planner = new NLGSentenceDeeperDepth(secondDiveletFeatures);
+				ifCanGenerateAddSentence(planner, "DeeperDepth");
+			}
+		}
+	}
+	
+	private void checkFineAscentRate(){
+		if (numOfDivelets == 1){
+			NLGSentence planner = new NLGSentenceFineAscentRate(firstDiveletFeatures, DiveType.UNIQUE);
+			ifCanGenerateAddSentence(planner, "Unique_FineAscentRate");
+		} else if (numOfDivelets == 2){
+			NLGSentence planner = new NLGSentenceFineAscentRate(firstDiveletFeatures, DiveType.FIRST);
+			ifCanGenerateAddSentence(planner, "First_FineAscentRate");
+			
+			planner = new NLGSentenceFineAscentRate(secondDiveletFeatures, DiveType.SECOND);
+			ifCanGenerateAddSentence(planner, "Second_FineAscentRate");
 		}
 	}
 	
@@ -107,7 +141,7 @@ public class TextGenerator implements Reporter{
 	}
 	
 	private void checkSafetyStop(){
-		if (firstDiveletFeatures != null){
+		if (firstDiveletFeatures != null && numOfDivelets > 1){
 			NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
 			ifCanGenerateAddSentence(planner, "L10_SafetyStop");
 		}
@@ -128,4 +162,11 @@ public class TextGenerator implements Reporter{
 		NLGSentence planner = new NLGSentenceRiskyDive(firstDiveletFeatures, secondDiveletFeatures);
 		ifCanGenerateAddSentence(planner, "L02_RiskyDive");
 	}	
+	
+	private void checkSecondDeeperFirst(){
+		if (numOfDivelets == 2){
+			NLGSentence planner = new NLGSentenceSecondDeeperFirst(firstDiveletFeatures, secondDiveletFeatures);
+			ifCanGenerateAddSentence(planner, "SecondDeeperFirst");
+		}
+	}
 }
