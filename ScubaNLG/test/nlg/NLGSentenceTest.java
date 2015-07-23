@@ -3,6 +3,7 @@ package nlg;
 import static org.junit.Assert.*;
 
 import analytics.DiveletFeatures;
+import microplanning.generators.DiveType;
 import microplanning.generators.FineAscentRate.AscentOrder;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceDeeperDepth;
@@ -112,13 +113,33 @@ public class NLGSentenceTest {
 	}
 	
 	@org.junit.Test
-	public void acceptExceededNDL(){
+	public void acceptExceededNDLOnUniqueDive(){
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.setExcessBottomTime(12L);
 		diveletFeature.setBottomTime(20L);
-		NLGSentence unit = new NLGSentenceExceededNDL(diveletFeature);
+		NLGSentence unit = new NLGSentenceExceededNDL(diveletFeature, DiveType.UNIQUE);
         assertEquals(unit.canPlan(), true);
 		assertEquals(realiser.realiseSentence(unit.getSentence()), "At this depth, you stayed longer than the NDL by 12mins which was 150% longer.");
+	}
+	
+	@org.junit.Test
+	public void acceptExceededNDLOnFirstDive(){
+		DiveletFeatures diveletFeature = new DiveletFeatures();
+		diveletFeature.setExcessBottomTime(12L);
+		diveletFeature.setBottomTime(20L);
+		NLGSentence unit = new NLGSentenceExceededNDL(diveletFeature, DiveType.FIRST);
+        assertEquals(unit.canPlan(), true);
+		assertEquals(realiser.realiseSentence(unit.getSentence()), "On your first dive you stayed longer than the NDL by 12mins which was 150% longer.");
+	}
+	
+	@org.junit.Test
+	public void acceptExceededNDLOnSecondDive(){
+		DiveletFeatures diveletFeature = new DiveletFeatures();
+		diveletFeature.setExcessBottomTime(12L);
+		diveletFeature.setBottomTime(20L);
+		NLGSentence unit = new NLGSentenceExceededNDL(diveletFeature, DiveType.SECOND);
+        assertEquals(unit.canPlan(), true);
+		assertEquals(realiser.realiseSentence(unit.getSentence()), "On your second dive you stayed longer than the NDL by 12mins which was 150% longer.");
 	}
 	
 	@org.junit.Test

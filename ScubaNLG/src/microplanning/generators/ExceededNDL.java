@@ -8,10 +8,12 @@ import simplenlg.features.*;
 public class ExceededNDL extends Generator{
 	private double bottomTime; 
 	private double excessBottomTime;
+	private DiveType type;
 	
-	public ExceededNDL(long bottomTime, long excessBottomTime) {
+	public ExceededNDL(long bottomTime, long excessBottomTime, DiveType type) {
 		this.bottomTime = (double) bottomTime;
 		this.excessBottomTime = (double) excessBottomTime;
+		this.type = type;
 	}
 	
 	@Override
@@ -19,10 +21,23 @@ public class ExceededNDL extends Generator{
 		Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         
-        PPPhraseSpec atThisDepth = nlgFactory.createPrepositionPhrase("at");
-        NPPhraseSpec thisDepth = nlgFactory.createNounPhrase("depth");
-        thisDepth.setDeterminer("this");
-        atThisDepth.addComplement(thisDepth);
+        PPPhraseSpec preModifier = nlgFactory.createPrepositionPhrase();
+        if (type.equals(DiveType.UNIQUE)){
+        	NPPhraseSpec thisDepth = nlgFactory.createNounPhrase("depth");
+            thisDepth.setDeterminer("this");
+            preModifier.setPreposition("at");
+            preModifier.addComplement(thisDepth);
+        } else {
+        	NPPhraseSpec dive = nlgFactory.createNounPhrase("dive");
+            dive.setDeterminer("your");
+            preModifier.setPreposition("on");
+            preModifier.addComplement(dive);
+            
+            if (type.equals(DiveType.FIRST))
+            	dive.addPreModifier("first");
+            else
+            	dive.addPreModifier("second");
+        }
         
         SPhraseSpec s = nlgFactory.createClause();
         NPPhraseSpec you = nlgFactory.createNounPhrase("you");
@@ -56,7 +71,7 @@ public class ExceededNDL extends Generator{
         
         time.addComplement(complement);
         
-        s.addFrontModifier(atThisDepth);
+        s.addFrontModifier(preModifier);
         s.setSubject(you);
         s.setVerb(stay);
         s.addComplement(than);
