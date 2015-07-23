@@ -10,7 +10,9 @@ import java.util.TreeMap;
 
 import analytics.DiveFeatures;
 import analytics.DiveletFeatures;
+import microplanning.generators.DiveType;
 import microplanning.planners.NLGSentence;
+import microplanning.planners.NLGSentenceExceededNDL;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceShallowDive;
@@ -62,6 +64,8 @@ public class TextGenerator implements Reporter{
 		
 		checkRiskyDive();
 		
+		checkExceededNDL();
+		
 		List<DocumentElement> sentences = new ArrayList<DocumentElement>();
 		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
 			DocumentElement s = nlgFactory.createSentence(element.getValue());
@@ -73,6 +77,20 @@ public class TextGenerator implements Reporter{
 		return realiser.realise(paragraph).getRealisation();
 	}
 
+	private void checkExceededNDL(){
+		if (numOfDivelets == 1){
+			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.UNIQUE);
+			ifCanGenerateAddSentence(planner, "Unique_ExceededNDL");
+		} else {
+			NLGSentence planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.FIRST);
+			ifCanGenerateAddSentence(planner, "First_ExceededNDL");
+			
+			planner = new NLGSentenceExceededNDL(firstDiveletFeatures, DiveType.SECOND);
+			ifCanGenerateAddSentence(planner, "Second_ExceededNDL");
+		}
+		
+	}
+	
 	private void checkSafetyStop(){
 		if (firstDiveletFeatures != null){
 			NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
