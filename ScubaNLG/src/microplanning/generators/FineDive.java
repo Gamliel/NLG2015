@@ -20,7 +20,15 @@ public class FineDive extends Generator{
         SPhraseSpec p = nlgFactory.createClause();
         
         NPPhraseSpec subject = nlgFactory.createNounPhrase("dive");
-        subject.setDeterminer("this");
+        if (type.equals(DiveType.UNIQUE)){
+        	subject.setDeterminer("this");
+        } else if (type.equals(DiveType.FIRST)){
+        	subject.setDeterminer("your");
+        	subject.addPreModifier("first");
+        } else {
+        	subject.setDeterminer("your");
+        	subject.addPreModifier("second");
+        }
                 
         VPPhraseSpec verb = nlgFactory.createVerbPhrase("be");
         verb.addComplement("fine");

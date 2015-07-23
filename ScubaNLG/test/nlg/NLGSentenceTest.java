@@ -113,6 +113,28 @@ public class NLGSentenceTest {
 	}
 	
 	@org.junit.Test
+	public void acceptFirstFineDive(){
+		DiveletFeatures diveletFeature = new DiveletFeatures();
+		diveletFeature.setExcessAscentSpeed(0);
+		diveletFeature.setExcessBottomTime(0);
+		diveletFeature.setExcessDiveDepth(0);
+        NLGSentence unit = new NLGSentenceFineDive(diveletFeature, DiveType.FIRST);
+        assertEquals(unit.canPlan(), true);
+		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your first dive was fine.");
+	}
+	
+	@org.junit.Test
+	public void acceptSecondFineDive(){
+		DiveletFeatures diveletFeature = new DiveletFeatures();
+		diveletFeature.setExcessAscentSpeed(0);
+		diveletFeature.setExcessBottomTime(0);
+		diveletFeature.setExcessDiveDepth(0);
+        NLGSentence unit = new NLGSentenceFineDive(diveletFeature, DiveType.SECOND);
+        assertEquals(unit.canPlan(), true);
+		assertEquals(realiser.realiseSentence(unit.getSentence()), "Your second dive was fine.");
+	}
+	
+	@org.junit.Test
 	public void acceptExceededNDLOnUniqueDive(){
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.setExcessBottomTime(12L);
