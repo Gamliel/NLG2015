@@ -7,6 +7,7 @@ import microplanning.generators.DiveType;
 import microplanning.generators.FineAscentRate.AscentOrder;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceDeeperDepth;
+import microplanning.planners.NLGSentenceExceededNDL;
 import microplanning.planners.NLGSentenceFineAscentRate;
 import microplanning.planners.NLGSentenceFineDive;
 import microplanning.planners.NLGSentenceRiskyDive;
@@ -111,9 +112,9 @@ public class TextGeneratorTest {
 	@org.junit.Test
 	public void acceptExceededNDL(){
 		DiveletFeatures diveletFeature = new DiveletFeatures();
-		diveletFeature.getBottomTime();
-		NLGSentence unit = new NLGSentenceFineDive(diveletFeature, DiveType.UNIQUE);
-        assertEquals(unit.canPlan(), true);
-		assertEquals(realiser.realiseSentence(unit.getSentence()), "At this depth, you stayed longer than the NDL by 12mins which was 150% longer.");
+		diveletFeature.setExcessBottomTime(12L);
+		diveletFeature.setBottomTime(20L);
+		TextGenerator textGenerator = new TextGenerator(9.0, 0, diveletFeature, null);
+		assertEquals(textGenerator.generateText(), "At this depth you stayed longer than the NDL by 12mins which was 150% longer.");		
 	}
 }

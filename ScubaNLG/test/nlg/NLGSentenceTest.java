@@ -119,7 +119,7 @@ public class NLGSentenceTest {
 		diveletFeature.setBottomTime(20L);
 		NLGSentence unit = new NLGSentenceExceededNDL(diveletFeature, DiveType.UNIQUE);
         assertEquals(unit.canPlan(), true);
-		assertEquals(realiser.realiseSentence(unit.getSentence()), "At this depth, you stayed longer than the NDL by 12mins which was 150% longer.");
+		assertEquals(realiser.realiseSentence(unit.getSentence()), "At this depth you stayed longer than the NDL by 12mins which was 150% longer.");
 	}
 	
 	@org.junit.Test
