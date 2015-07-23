@@ -2,7 +2,6 @@ package microplanning.planners;
 
 import analytics.DiveletFeatures;
 import microplanning.generators.DeeperDepth;
-import microplanning.generators.Generator;
 import simplenlg.phrasespec.SPhraseSpec;
 
 public class NLGSentenceDeeperDepth extends NLGSentence{
