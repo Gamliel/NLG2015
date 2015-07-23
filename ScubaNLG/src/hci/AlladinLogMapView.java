@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 
 import nlg.DiveReporter;
 import nlg.Reporter;
+import nlg.TextGenerator;
 import analytics.DiveAnalyser;
 import analytics.DiveFeatures;
 import analytics.DiveInterpreter;
@@ -250,7 +251,11 @@ public class AlladinLogMapView extends Plot  implements MouseListener{
                     diveFeatures = interpreter.interpretDive();
                     Reporter reporter = new DiveReporter(diveFeatures);
                 	String text = reporter.generateText();
-                	myParent.displayReport(profile,text);
+                	
+                	TextGenerator textGenerator = new TextGenerator(diveFeatures);
+                	String ourText = textGenerator.generateText();
+//                	myParent.displayReport(profile,generatedText + " and features: " +text);
+                	myParent.displayReport(profile,ourText,text);
                 }
         }
     }

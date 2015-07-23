@@ -4,6 +4,7 @@ package nlg;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import analytics.DiveFeatures;
 import analytics.DiveletFeatures;
 import microplanning.planners.NLGSentence;
 import microplanning.planners.NLGSentenceRiskyDive;
@@ -23,7 +24,9 @@ public class TextGenerator implements Reporter{
 	DiveletFeatures firstDiveletFeatures;
 	DiveletFeatures secondDiveletFeatures; 
 	
-	HashMap<String, SPhraseSpec> phrases;
+	private DiveFeatures diveFeatures;
+	
+	HashMap<String, SPhraseSpec> phrases = new HashMap<String, SPhraseSpec>();
 	
 	public TextGenerator(double diveDepth, 
 			int numOfDivelets, 
@@ -33,10 +36,17 @@ public class TextGenerator implements Reporter{
 		this.numOfDivelets = numOfDivelets;
 		this.firstDiveletFeatures = firstDiveletFeatures;
 		this.secondDiveletFeatures = secondDiveletFeatures;
-		
-		this.phrases = new HashMap<String, SPhraseSpec>();
 	}
 	
+	
+	public TextGenerator(DiveFeatures diveFeatures) {
+		this.diveFeatures = diveFeatures;
+		this.diveDepth = diveFeatures.getDiveDepth();
+		this.numOfDivelets = diveFeatures.getNumOfDivelets();
+		this.firstDiveletFeatures = diveFeatures.getFirstDiveletFeatures();
+		this.secondDiveletFeatures = diveFeatures.getSecondDiveletFeatures();
+	}
+
 	@Override
 	public String generateText() {
 		checkSafetyStop();
@@ -45,11 +55,16 @@ public class TextGenerator implements Reporter{
 		
 		checkRiskyDive();
 		
+		
 		String result = "";
 		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
 			result += realiser.realiseSentence(element.getValue());
 		}
 
+		if (result.equals("")){
+			result = " ** NO TEXT GENERATED **";
+		}
+		
 		return result;
 	}
 

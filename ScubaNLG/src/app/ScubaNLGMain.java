@@ -98,7 +98,7 @@ public class ScubaNLGMain extends javax.swing.JFrame {
 	 * Displays the dive profile and the text for the dive selected by the user
 	 */
 	
-	public void displayReport(TreeMap<Long, Double> diveProfile, String text) {
+	public void displayReport(TreeMap<Long, Double> diveProfile, String ourText, String text) {
 		long first = ((Long) profile.firstKey()).longValue();
 		long last = ((Long) profile.lastKey()).longValue();
 		Double maxDepth = Utils.myMax(profile.values());
@@ -114,7 +114,7 @@ public class ScubaNLGMain extends javax.swing.JFrame {
 		javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(
 				textPane);
 		textPane.setEditable(false);
-		textPane.setText("<b>Corpus Text:</b>\n" + text);
+		textPane.setText("<p><b>Our Text:</b>\n" + ourText + "</p>" + "<b>Corpus Text:</b>\n" + text);
 		dialog.add(scrollPane, java.awt.BorderLayout.SOUTH);
 		
 		// set the preferred size of the scatterplot window
