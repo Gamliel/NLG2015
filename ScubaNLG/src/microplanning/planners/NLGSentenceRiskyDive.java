@@ -28,11 +28,15 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 	
 	private boolean hasReallyExceeded() {
 		if (firstDiveletFeatures != null){
-			return (firstDiveletFeatures.getBottomTime() / 
-					(firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1;
+			long NDL  = firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime();
+			if (NDL > 0){
+				return (firstDiveletFeatures.getBottomTime() / NDL) > 1;} 
+			else {return false;}
 		} else if (secondDiveletFeatures != null){
-			return  (secondDiveletFeatures.getBottomTime() / 
-					(secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
+			long NDL = (secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime());
+			if (NDL > 0){
+				return  (secondDiveletFeatures.getBottomTime() / NDL) > 1;
+			} else {return false;}
 		}
 		return false;
 	}
