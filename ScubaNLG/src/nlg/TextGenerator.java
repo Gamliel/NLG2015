@@ -12,10 +12,12 @@ import analytics.DiveFeatures;
 import analytics.DiveletFeatures;
 import microplanning.generators.DiveType;
 import microplanning.planners.NLGSentence;
+import microplanning.planners.NLGSentenceBadAscentRate;
 import microplanning.planners.NLGSentenceDeeperDepth;
 import microplanning.planners.NLGSentenceExceededNDL;
 import microplanning.planners.NLGSentenceFineAscentRate;
 import microplanning.planners.NLGSentenceFineDive;
+import microplanning.planners.NLGSentenceQuickSuccession;
 import microplanning.planners.NLGSentenceRiskyDive;
 import microplanning.planners.NLGSentenceSafetyStop;
 import microplanning.planners.NLGSentenceSecondDeeperFirst;
@@ -74,9 +76,13 @@ public class TextGenerator implements Reporter{
 		
 		checkFineAscentRate();
 		
+		checkBadAscentRate();
+		
 		checkSecondDeeperFirst();
 		
 		checkSafetyStop();
+		
+		checkQuickSuccession();
 		
 		List<DocumentElement> sentences = new ArrayList<DocumentElement>();
 		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
@@ -127,6 +133,19 @@ public class TextGenerator implements Reporter{
 		}
 	}
 	
+	private void checkBadAscentRate(){
+		if (numOfDivelets == 1){
+			NLGSentence planner = new NLGSentenceBadAscentRate(firstDiveletFeatures, DiveType.UNIQUE);
+			ifCanGenerateAddSentence(planner, "Unique_BadAscentRate");
+		} else if (numOfDivelets == 2){
+			NLGSentence planner = new NLGSentenceBadAscentRate(firstDiveletFeatures, DiveType.FIRST);
+			ifCanGenerateAddSentence(planner, "First_BadAscentRate");
+			
+			planner = new NLGSentenceBadAscentRate(secondDiveletFeatures, DiveType.SECOND);
+			ifCanGenerateAddSentence(planner, "Second_BadAscentRate");
+		}
+	}
+	
 	private void checkFineDive(){
 		if (numOfDivelets == 1){
 			NLGSentence planner = new NLGSentenceFineDive(firstDiveletFeatures, DiveType.UNIQUE);
@@ -167,6 +186,13 @@ public class TextGenerator implements Reporter{
 		if (numOfDivelets == 2){
 			NLGSentence planner = new NLGSentenceSecondDeeperFirst(firstDiveletFeatures, secondDiveletFeatures);
 			ifCanGenerateAddSentence(planner, "SecondDeeperFirst");
+		}
+	}
+	
+	private void checkQuickSuccession(){
+		if (numOfDivelets == 2){
+			NLGSentence planner = new NLGSentenceQuickSuccession();
+			ifCanGenerateAddSentence(planner, "QuickSuccession");
 		}
 	}
 }
