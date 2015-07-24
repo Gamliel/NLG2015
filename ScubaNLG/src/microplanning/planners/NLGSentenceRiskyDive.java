@@ -27,13 +27,13 @@ public class NLGSentenceRiskyDive extends NLGSentence{
 	}
 	
 	private boolean hasReallyExceeded() {
-//		if (firstDiveletFeatures != null){
-//			return (firstDiveletFeatures.getBottomTime() / 
-//					(firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1;
-//		} else if (secondDiveletFeatures != null){
-//			return  (secondDiveletFeatures.getBottomTime() / 
-//					(secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
-//		}
+		if (firstDiveletFeatures != null){
+			return (firstDiveletFeatures.getBottomTime() / 
+					(firstDiveletFeatures.getBottomTime()-firstDiveletFeatures.getExcessBottomTime())) > 1;
+		} else if (secondDiveletFeatures != null){
+			return  (secondDiveletFeatures.getBottomTime() / 
+					(secondDiveletFeatures.getBottomTime()-secondDiveletFeatures.getExcessBottomTime())) > 1;
+		}
 		return false;
 	}
 

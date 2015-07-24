@@ -114,6 +114,6 @@ public class TextGeneratorTest {
 		diveletFeature.setExcessBottomTime(12L);
 		diveletFeature.setBottomTime(20L);
 		TextGenerator textGenerator = new TextGenerator(20.0, 1, diveletFeature, null);
-		assertEquals(textGenerator.generateText(), "At this depth you stayed longer than the NDL by 12mins which was 150% longer.\n\n");		
+		assertEquals(true,textGenerator.generateText().contains("At this depth you stayed longer than the NDL by 12mins which was 150% longer."));		
 	}
 }

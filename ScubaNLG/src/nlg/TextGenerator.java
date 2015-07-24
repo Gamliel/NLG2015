@@ -162,7 +162,7 @@ public class TextGenerator implements Reporter{
 	private void checkSafetyStop(){
 		if (firstDiveletFeatures != null && numOfDivelets > 1){
 			NLGSentenceSafetyStop planner = new NLGSentenceSafetyStop(diveDepth, firstDiveletFeatures.getBottomTime());
-			ifCanGenerateAddSentence(planner, "L10_SafetyStop");
+			ifCanGenerateAddSentence(planner, "L0010_SafetyStop");
 		}
 	}
 
@@ -174,12 +174,12 @@ public class TextGenerator implements Reporter{
 	
 	private void checkShallowDive(){
 		NLGSentence planner = new NLGSentenceShallowDive(diveDepth);
-		ifCanGenerateAddSentence(planner, "L01_ShallowDive");
+		ifCanGenerateAddSentence(planner, "L0001_ShallowDive");
 	}
 	
 	private void checkRiskyDive(){
 		NLGSentence planner = new NLGSentenceRiskyDive(firstDiveletFeatures, secondDiveletFeatures);
-		ifCanGenerateAddSentence(planner, "L02_RiskyDive");
+		ifCanGenerateAddSentence(planner, "L0002_RiskyDive");
 	}	
 	
 	private void checkSecondDeeperFirst(){
