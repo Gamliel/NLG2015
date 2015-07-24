@@ -21,14 +21,14 @@ public class TextGeneratorTest {
 
 	@org.junit.Test
 	public void acceptDiveDepthForShallowDive() {
-		TextGenerator textGenerator = new TextGenerator(12.0, 0, null, null);
-		assertEquals(textGenerator.generateText().contains("This was a shallow dive."), true);
+		SentenceGenerator textGenerator = new SentenceGenerator(12.0, 0, null, null);
+		assertEquals(new DocumentPlanner(textGenerator.generateSentences()).generateText().contains("This was a shallow dive."), true);
 	}
 	
 	@org.junit.Test
 	public void acceptDiveDepthForAReallyShallowDive() {
-		TextGenerator textGenerator = new TextGenerator(9.0, 0, null, null);
-		assertEquals(textGenerator.generateText().contains("This was a really shallow dive."),true);
+		SentenceGenerator textGenerator = new SentenceGenerator(9.0, 0, null, null);
+		assertEquals(new DocumentPlanner(textGenerator.generateSentences()).generateText().contains("This was a really shallow dive."),true);
 	}
 	
 	
@@ -113,7 +113,7 @@ public class TextGeneratorTest {
 		DiveletFeatures diveletFeature = new DiveletFeatures();
 		diveletFeature.setExcessBottomTime(12L);
 		diveletFeature.setBottomTime(20L);
-		TextGenerator textGenerator = new TextGenerator(20.0, 1, diveletFeature, null);
-		assertEquals(true,textGenerator.generateText().contains("At this depth you stayed longer than the NDL by 12mins which was 150% longer."));		
+		SentenceGenerator textGenerator = new SentenceGenerator(20.0, 1, diveletFeature, null);
+		assertEquals(true,new DocumentPlanner(textGenerator.generateSentences()).generateText().contains("At this depth you stayed longer than the NDL by 12mins which was 150% longer."));		
 	}
 }

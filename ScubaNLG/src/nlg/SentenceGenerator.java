@@ -28,7 +28,7 @@ import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.realiser.english.Realiser;
 
-public class TextGenerator implements Reporter{
+public class SentenceGenerator {
 	
 	private Lexicon lexicon = Lexicon.getDefaultLexicon();
     private Realiser realiser = new Realiser(lexicon);
@@ -37,13 +37,11 @@ public class TextGenerator implements Reporter{
 	double diveDepth;
 	int numOfDivelets;
 	DiveletFeatures firstDiveletFeatures;
-	DiveletFeatures secondDiveletFeatures; 
-	
-	private DiveFeatures diveFeatures;
+	DiveletFeatures secondDiveletFeatures;
 	
 	Map<String, SPhraseSpec> phrases = new TreeMap<String, SPhraseSpec>();
 	
-	public TextGenerator(double diveDepth, 
+	public SentenceGenerator(double diveDepth, 
 			int numOfDivelets, 
 			DiveletFeatures firstDiveletFeatures, 
 			DiveletFeatures secondDiveletFeatures) {
@@ -54,16 +52,14 @@ public class TextGenerator implements Reporter{
 	}
 	
 	
-	public TextGenerator(DiveFeatures diveFeatures) {
-		this.diveFeatures = diveFeatures;
+	public SentenceGenerator(DiveFeatures diveFeatures) {
 		this.diveDepth = diveFeatures.getDiveDepth();
 		this.numOfDivelets = diveFeatures.getNumOfDivelets();
 		this.firstDiveletFeatures = diveFeatures.getFirstDiveletFeatures();
 		this.secondDiveletFeatures = diveFeatures.getSecondDiveletFeatures();
 	}
 
-	@Override
-	public String generateText() {
+	public Map<String, SPhraseSpec> generateSentences() {
 		checkFineDive();
 		
 		checkRiskyDive();
@@ -84,15 +80,7 @@ public class TextGenerator implements Reporter{
 		
 		checkQuickSuccession();
 		
-		List<DocumentElement> sentences = new ArrayList<DocumentElement>();
-		for (Entry<String, SPhraseSpec> element : phrases.entrySet()) {
-			DocumentElement s = nlgFactory.createSentence(element.getValue());
-			sentences.add(s);
-		}
-
-		DocumentElement paragraph = nlgFactory.createParagraph(sentences);
-				
-		return realiser.realise(paragraph).getRealisation();
+		return phrases;
 	}
 
 	private void checkExceededNDL(){

@@ -24,8 +24,9 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 import nlg.DiveReporter;
+import nlg.DocumentPlanner;
 import nlg.Reporter;
-import nlg.TextGenerator;
+import nlg.SentenceGenerator;
 import analytics.DiveAnalyser;
 import analytics.DiveFeatures;
 import analytics.DiveInterpreter;
@@ -252,8 +253,8 @@ public class AlladinLogMapView extends Plot  implements MouseListener{
                     Reporter reporter = new DiveReporter(diveFeatures);
                 	String text = reporter.generateText();
                 	
-                	TextGenerator textGenerator = new TextGenerator(diveFeatures);
-                	String ourText = textGenerator.generateText();
+                	SentenceGenerator sentenceGenerator = new SentenceGenerator(diveFeatures);
+                	String ourText = new DocumentPlanner(sentenceGenerator.generateSentences()).generateText();
 //                	myParent.displayReport(profile,generatedText + " and features: " +text);
                 	myParent.displayReport(profile,ourText,text);
                 }
