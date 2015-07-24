@@ -20,6 +20,8 @@ public class SecondDeeperFirst extends Generator{
         
         SPhraseSpec s = nlgFactory.createClause();
         
+        s.setFrontModifier("moreover");
+        
         NPPhraseSpec secondDive = nlgFactory.createNounPhrase("dive");
         secondDive.setDeterminer("your");
         secondDive.setPreModifier("second");
